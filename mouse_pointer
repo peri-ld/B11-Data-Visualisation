@@ -6,7 +6,7 @@ color colour2 = randomColor();
 color colour3 = randomColor();
 
 void setup() {
-  size(1000, 1000);
+  size(1000, 500);
   noStroke();
   rectMode(CENTER);
   background(bgColor);
