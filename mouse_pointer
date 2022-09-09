@@ -1,0 +1,57 @@
+float spinner = random(1,10);
+float rotationAngle = 0;
+color bgColor = color(255, 219, 219);
+color colour1 = randomColor();
+color colour2 = randomColor();
+color colour3 = randomColor();
+
+void setup() {
+  size(1000, 1000);
+  noStroke();
+  rectMode(CENTER);
+  background(bgColor);
+}
+
+// draw is a loop
+void draw() {
+  
+  background(bgColor);
+  pushMatrix();
+  translate(mouseX, mouseY);
+  rotate(radians(rotationAngle*spinner));
+  polygon(0, 0, 100, 6);
+  rotationAngle++;
+  popMatrix();
+}
+
+void polygon(float x, float y, float radius, int npoints) {
+  float angle = TWO_PI / npoints;
+  int colour = 0;
+  for (float b = 0; b <= TWO_PI; b += radians(120)) {
+    beginShape();
+    switch (colour) {
+      case 1: fill(colour1); break;
+      case 2: fill(colour2); break;
+      case 3: fill(colour3); break;
+    }
+    colour++;
+    for (float a = 0; a < PI; a += angle) { // all in radians
+      float sx = x + cos(a + b) * radius;
+      float sy = y + sin(a + b) * radius;
+      vertex(sx, sy);
+    }
+    vertex(x, y);
+    endShape(CLOSE);
+  }
+}
+
+color randomColor() {
+  return color(random(255), random(255), random(255));
+}
+  
+void mousePressed(){
+  colour1 = randomColor();
+  colour2 = randomColor();
+  colour3 = randomColor();
+  spinner = random(1,10);
+}
