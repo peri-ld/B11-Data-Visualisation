@@ -1,3 +1,7 @@
+/*
+  This file was purely used for the preprocessed calculations of the averages in each dataset. It is not used in the main program.
+*/
+
 // variables
 
 Table airTempTable;
