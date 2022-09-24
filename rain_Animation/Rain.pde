@@ -5,13 +5,10 @@
 class Rain {
   // variables
   float startX = random(width);
-  float startY = random(-300, 0);
-  float rainSpeed = random(4, 10);
+  float startY = random(-200, 0);
+  float rainSpeed = random(6, 11);
   color rainColor = color(78, 149, 222, 100);
-  
-  float rainAvgForDay = 0;
-  float rainTotal = 0;
-  float rainCount = 0;
+  // test :D
   
   int selectedDay = 1;
   
@@ -32,42 +29,6 @@ class Rain {
     }
     
   }
-  
-  //void calculateAvgRainfall() {
-  //  rainTotal = 0;
-  //  rainCount = 0;
-  //  String stringSearch;
-  //  for (int i = 1; i <= 31; i++) {
-  //    if (i == rainNumber) {
-        
-  //      if (rainNumber < 10) {
-  //        stringSearch = "2021-10-0" + rainNumber;
-  //      }
-  //      else {
-  //        stringSearch = "2021-10-" + rainNumber;
-  //      }
-        
-  //      println(stringSearch);
-        
-  //      String stringFromTable;
-  //      for (int j = 0; j < rainDataTableOld.getRowCount(); j++) {
-  //        stringFromTable = rainDataTableOld.getString(j, 0);
-  //        if ( stringFromTable.contains(stringSearch) ) {
-  //          rainTotal += rainDataTableOld.getFloat(j, 1);
-  //          rainCount++;
-  //        }
-  //      } // end for j
-        
-  //      rainAvgForDay = rainTotal / rainCount;
-        
-  //      break;
-  //    }
-  //  } // end for i
-  //} // end avg rainfall function
-  
-  //public float getAverage() {
-  //  return rainAvgForDay;
-  //}
   
   public void updateDay(int day) {
     selectedDay = day;
