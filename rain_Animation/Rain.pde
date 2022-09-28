@@ -8,7 +8,6 @@ class Rain {
   float startY = random(-200, 0);
   float rainSpeed = random(6, 11);
   color rainColor = color(78, 149, 222, 100);
-  // test :D
   
   int selectedDay = 0;
   

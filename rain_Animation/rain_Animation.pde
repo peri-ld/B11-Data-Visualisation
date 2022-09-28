@@ -17,6 +17,10 @@ Rain[] rainDrops = new Rain[250];
 Table windDirectionTable;
 WindDirection windDir;
 
+//// sun variables
+Table uvaRadiationTable;
+SunIcon sun;
+
 
 //// background colour
 color backgroundColour = color(250, 198, 174); // this changes from a seperate method when day is hovered over, not in this file currently
@@ -37,13 +41,13 @@ Gain windGain;
 
 void setup(){
   size(1100, 700);
-  rainDataTable = loadTable("data/RainAverage.csv", "csv");
+  rainDataTable      = loadTable("data/RainAverage.csv", "csv");
   windDirectionTable = loadTable("data/windDirectionAverage.csv", "csv");
-  
-  //frameRate(20);
-    
+  uvaRadiationTable  = loadTable("data/uvaRadiationAverage.csv", "csv");
+
   rain    = new Rain();
   windDir = new WindDirection();
+  sun     = new SunIcon();
     
   for (int i = 0; i < rainDrops.length; i++) {
     rainDrops[i] = new Rain();
@@ -64,17 +68,11 @@ void setup(){
   windPlayer.setLoopType(SamplePlayer.LoopType.LOOP_FORWARDS);
   windGain = new Gain(ac, 1, 0);
   windGain.addInput(windPlayer);
-  // panner (below) will need to be updated so it uses average wind dir to change the panner
-  // also the gain above needs to be set to zero 
-    // and then depending on the selected day, make it 0.5 or something
-    // may need to change the wind sound, it doesn't loop very well
   windPanner = new Panner(ac, 0);
   windPanner.addInput(windGain);
-  
   ac.out.addInput(windPanner);
   
   ac.start();
-  
 }
 
 void draw() {
@@ -167,6 +165,15 @@ void draw() {
     windGain.setGain(0.75);
   }
   
+  // sun icon goes here
+  println("UVARad Number (Day of Month): " + dayNumber);
+  println("UVARad Average: " + sun.avgForDay());
+  println(" ");
+  
+  if (sun.avgForDay() > 0) {
+    sun.drawSun();
+  }
+  
 } // end draw
 
 // ** THIS NEEDS TO BE CHANGED SINCE IT RELIES ON KEY PRESSES NOT THE HOVER //**//
@@ -178,6 +185,7 @@ void keyPressed() {
         dayNumber--;
         rain.updateDay(dayNumber);
         windDir.updateWindDirectionDay(dayNumber);
+        sun.updateDay(dayNumber);
       }
     }
     else if (keyCode == RIGHT) {
@@ -185,6 +193,7 @@ void keyPressed() {
         dayNumber++;
         rain.updateDay(dayNumber);    
         windDir.updateWindDirectionDay(dayNumber);
+        sun.updateDay(dayNumber);
       }
     }
   }
