@@ -10,13 +10,13 @@ class Rain {
   color rainColor = color(78, 149, 222, 100);
   // test :D
   
-  int selectedDay = 1;
+  int selectedDay = 0;
   
   // draw rain
   void rainDrop() {
     fill(rainColor);
     noStroke();
-    rect(startX, startY, random(2, 4), random(5, 20));
+    rect(startX, startY, random(1, 4), random(5, 20));
     updateRainFallLocation();
   }
   
@@ -36,16 +36,23 @@ class Rain {
   
   public float avgForDay() {
     float average = 0;
-    int selected = selectedDay - 1;
     
-    for (int i = 0; i < rainDataTable.getRowCount(); i++) {
-      if (i == selected) {
-        average = rainDataTable.getFloat(i, 1);
-        break;
+    if (selectedDay == 0) {
+      average = 0;
+    }
+    else {
+      int selected = selectedDay - 1;
+    
+      for (int i = 0; i < rainDataTable.getRowCount(); i++) {
+        if (i == selected) {
+          average = rainDataTable.getFloat(i, 1);
+          break;
+        }
       }
     }
     
     return average;
+    
   } // end avgForDay
   
 }

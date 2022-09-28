@@ -2,41 +2,77 @@
   Code done by Chantel 
 */
 
-// libraries
+//// libraries
 import beads.*;
 
-// variables
-Table rainDataTable;
-int rainNumber = 1;
+//// variables for all
+int dayNumber = 0;
 
+//// rain variables
+Table rainDataTable;
 Rain rain;
 Rain[] rainDrops = new Rain[250];
 
-color backgroundColour = color(195, 234, 159); // this changes from a seperate method when day is hovered over, not in this file currently
+//// wind direction variables
+Table windDirectionTable;
+WindDirection windDir;
 
 
-// Sounds
+//// background colour
+color backgroundColour = color(250, 198, 174); // this changes from a seperate method when day is hovered over, not in this file currently
+
+
+//// Sounds
 AudioContext ac;
+
+//// rain sounds
 SamplePlayer rainPlayer;
 Gain rainGain;
 float gainLevel = 0;
 
+//// wind direction + speed sounds
+SamplePlayer windPlayer;
+Panner windPanner;
+Gain windGain;
+
 void setup(){
   size(1100, 700);
   rainDataTable = loadTable("data/RainAverage.csv", "csv");
-  rain = new Rain();
+  windDirectionTable = loadTable("data/windDirectionAverage.csv", "csv");
+  
+  //frameRate(20);
+    
+  rain    = new Rain();
+  windDir = new WindDirection();
     
   for (int i = 0; i < rainDrops.length; i++) {
     rainDrops[i] = new Rain();
   }
   
   ac = AudioContext.getDefaultContext();
+  
   String rainAudioFileName = "/Users/chantelmills/Documents/GitHub/B11-Data-Visualisation/rain_Animation/sounds/raining.mp3";
   rainPlayer = new SamplePlayer(ac, SampleManager.sample(rainAudioFileName));
   rainPlayer.setLoopType(SamplePlayer.LoopType.LOOP_FORWARDS);
   rainGain = new Gain(ac, 2, 0);
   rainGain.addInput(rainPlayer);
   ac.out.addInput(rainGain);
+  
+  // wind sounds here
+  String windAudioFileName = "/Users/chantelmills/Documents/GitHub/B11-Data-Visualisation/rain_Animation/sounds/the_wind.mp3";
+  windPlayer = new SamplePlayer(ac, SampleManager.sample(windAudioFileName));
+  windPlayer.setLoopType(SamplePlayer.LoopType.LOOP_FORWARDS);
+  windGain = new Gain(ac, 1, 0);
+  windGain.addInput(windPlayer);
+  // panner (below) will need to be updated so it uses average wind dir to change the panner
+  // also the gain above needs to be set to zero 
+    // and then depending on the selected day, make it 0.5 or something
+    // may need to change the wind sound, it doesn't loop very well
+  windPanner = new Panner(ac, 0);
+  windPanner.addInput(windGain);
+  
+  ac.out.addInput(windPanner);
+  
   ac.start();
   
 }
@@ -44,49 +80,91 @@ void setup(){
 void draw() {
   //background(backgroundColour, 150);
   fill(backgroundColour, 150);
-  rect(0, 0, width, height);
+  rect(-1, -1, width + 1, height + 1);
   
-  println("Rain Number (Day of Month): " + rainNumber);
+  println("Rain Number (Day of Month): " + dayNumber);
   println("Rain Average: " + rain.avgForDay());
   println(" ");
   
-  float avg = rain.avgForDay();
+  float rainAvg = rain.avgForDay();
   float rainLimit = 0;
+  rainGain.setGain(rainAvg / 2); // bases the gain from the average rain for the selected day
   
-  rainGain.setGain(rain.avgForDay()); // bases the gain from the average rain for the selected day
-  
-  if (avg == 0) {
+  if (rainAvg == 0) {
     rainLimit = 0;
-    //rainGain.setGain(0);
   }
-  else if (avg > 4.5) {
+  else if (rainAvg > 4.5) {
     // display all
     rainLimit = rainDrops.length;
-    //rainGain.setGain(2);
   }
-  else if (avg <= 4.5 && avg > 3.5) {
+  else if (rainAvg <= 4.5 && rainAvg > 3.5) {
     rainLimit = 200;
-    //rainGain.setGain(1.5);
   }
-  else if (avg <= 3.5 && avg > 2.5) {
+  else if (rainAvg <= 3.5 && rainAvg > 2.5) {
     rainLimit = 150;
-    //rainGain.setGain(1);
   }
-  else if (avg <= 2.5 && avg > 1.5) {
+  else if (rainAvg <= 2.5 && rainAvg > 1.5) {
     rainLimit = 100;
-    //rainGain.setGain(0.75);
   }
-  else if (avg <= 1.5 && avg > 0.5) {
+  else if (rainAvg <= 1.5 && rainAvg > 0.5) {
     rainLimit = 50;
-    //rainGain.setGain(0.5);
   }
-  else if (avg <= 0.5) {
+  else if (rainAvg <= 0.5) {
     rainLimit = 25;
-    //rainGain.setGain(0.25);
   }
   
   for (int i = 0; i < rainLimit; i++) {
     rainDrops[i].rainDrop();
+  }
+  
+  float windDirAvg = windDir.avgForDay();
+  
+  println("Wind Number (Day of Month): " + dayNumber);
+  println("WindDir Average: " + windDirAvg);
+  println(" ");
+  
+  if (windDirAvg == 0) {
+    windGain.setGain(0);
+    windPanner.setPos(0);
+  }
+  else if (windDirAvg <= 151) {
+    // full right panner
+    windPanner.setPos(1);
+    windGain.setGain(0.75);
+  }
+  else if (windDirAvg <= 155 && windDirAvg > 151) {
+    windPanner.setPos(0.75);
+    windGain.setGain(0.75);
+  }
+  else if (windDirAvg <= 159 && windDirAvg > 155) {
+    windPanner.setPos(0.5);
+    windGain.setGain(0.75);
+  }
+  else if (windDirAvg <= 163 && windDirAvg > 159) {
+    windPanner.setPos(0.25);
+    windGain.setGain(0.75);
+  }
+  else if (windDirAvg < 170 && windDirAvg > 163) { 
+    // center panner
+    windPanner.setPos(0);
+    windGain.setGain(0.75);
+  }
+  else if (windDirAvg >= 170 && windDirAvg < 174) {
+    windPanner.setPos(-0.25);
+    windGain.setGain(0.75);
+  }
+  else if (windDirAvg >= 174 && windDirAvg < 178) {
+    windPanner.setPos(-0.5);
+    windGain.setGain(0.75);
+  }
+  else if (windDirAvg >= 178 && windDirAvg < 182) {
+    windPanner.setPos(-0.75);
+    windGain.setGain(0.75);
+  }
+  else if (windDirAvg >= 182) {
+    // full left panner
+    windPanner.setPos(-1);
+    windGain.setGain(0.75);
   }
   
 } // end draw
@@ -96,15 +174,17 @@ void draw() {
 void keyPressed() {
   if (key == CODED) {
     if (keyCode == LEFT) {
-      if (rainNumber != 1) {
-        rainNumber--;
-        rain.updateDay(rainNumber);        
+      if (dayNumber != 1) {
+        dayNumber--;
+        rain.updateDay(dayNumber);
+        windDir.updateWindDirectionDay(dayNumber);
       }
     }
     else if (keyCode == RIGHT) {
-      if (rainNumber != 31) {
-        rainNumber++;
-        rain.updateDay(rainNumber);        
+      if (dayNumber != 31) {
+        dayNumber++;
+        rain.updateDay(dayNumber);    
+        windDir.updateWindDirectionDay(dayNumber);
       }
     }
   }
