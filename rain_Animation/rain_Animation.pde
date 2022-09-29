@@ -4,6 +4,7 @@
 
 //// libraries
 import beads.*;
+import controlP5.*;
 
 //// variables for all
 int dayNumber = 0;
@@ -21,6 +22,10 @@ WindDirection windDir;
 Table uvaRadiationTable;
 SunIcon sun;
 
+//// cloud variables
+PImage cloud;
+CloudIcon rainCloud;
+CloudIcon[] cloudDrops = new CloudIcon[10];
 
 //// background colour
 color backgroundColour = color(250, 198, 174); // this changes from a seperate method when day is hovered over, not in this file currently
@@ -48,9 +53,16 @@ void setup(){
   rain    = new Rain();
   windDir = new WindDirection();
   sun     = new SunIcon();
-    
+  
+  cloud = loadImage("cloud.png");
+  rainCloud = new CloudIcon();
+      
   for (int i = 0; i < rainDrops.length; i++) {
     rainDrops[i] = new Rain();
+  }
+  
+  for (int i = 0; i < cloudDrops.length; i++) {
+    cloudDrops[i] = new CloudIcon();
   }
   
   ac = AudioContext.getDefaultContext();
@@ -172,6 +184,22 @@ void draw() {
   
   if (sun.avgForDay() > 0) {
     sun.drawSun();
+  }
+  
+  
+  // rain cloud icon (to appear over sun when raining)
+  if (rain.avgForDay() > 0) {
+    // draw rain cloud
+    rainCloud.drawRainCloud();
+    rainCloud.drawRainDrop();
+    rainCloud.updateDropLocation();
+    
+    for (int i = 0; i < cloudDrops.length; i++) {
+      cloudDrops[i].drawRainDrop();
+      cloudDrops[i].updateDropLocation();
+      cloudDrops[i].drawRainCloud();
+    }
+    
   }
   
 } // end draw

@@ -23,7 +23,7 @@ class SunIcon {
     }
     angle += 0.01;
     
-    translate(0, 0);
+    translate(-sunX, -sunY); // reset back to (0, 0)
     stroke(0);
   } // end drawSun()
   
