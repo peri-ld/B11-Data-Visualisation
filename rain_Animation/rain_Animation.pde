@@ -182,9 +182,9 @@ void draw() {
   println("UVARad Average: " + sun.avgForDay());
   println(" ");
   
-  if (sun.avgForDay() > 0) {
+  //if (sun.avgForDay() > 0) {
     sun.drawSun();
-  }
+  //}
   
   
   // rain cloud icon (to appear over sun when raining)
@@ -198,9 +198,10 @@ void draw() {
       cloudDrops[i].drawRainDrop();
       cloudDrops[i].updateDropLocation();
       cloudDrops[i].drawRainCloud();
-    }
-    
+    }    
   }
+  
+  windDir.drawWind();
   
 } // end draw
 

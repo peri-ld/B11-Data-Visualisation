@@ -1,6 +1,6 @@
 class SunIcon {
   // variables
-  float sunX = width - 100;
+  float sunX = width - 90;
   float sunY = height/2;
   float sunRadius = 50;
   int rayCount = 20;

@@ -5,6 +5,16 @@
 class WindDirection {
   
   int selectedDay = 0;
+  PImage wind;
+  
+  float windIconX;
+  float windIconY;
+  
+  WindDirection() {
+    wind = loadImage("wind.png");
+    windIconX = width - 100;
+    windIconY = height - 250;
+  }
   
   public void updateWindDirectionDay(int day) {
     selectedDay = day;
@@ -30,5 +40,20 @@ class WindDirection {
     return average;
     
   } // end avgForDay
+  
+  // method for wind icon
+  void drawWind() {
+    
+    if (selectedDay == 0) {
+      image(wind, windIconX, windIconY, wind.width/2, wind.height/2);
+    }
+    else {
+      translate(windIconX, windIconY);
+      rotate(radians(avgForDay()));
+      image(wind, 0 - 30, 0 - 100, wind.width/2, wind.height/2);
+      translate(-windIconX, -windIconY); // reset back to (0, 0)
+    }
+    
+  }
   
 } // end class
