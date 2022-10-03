@@ -88,9 +88,9 @@ void setup(){
 }
 
 void draw() {
-  //background(backgroundColour, 150);
-  fill(backgroundColour, 150);
-  rect(-1, -1, width + 1, height + 1);
+  background(backgroundColour, 150);
+  //fill(backgroundColour, 150);
+  //rect(-1, -1, width + 1, height + 1);
   
   println("Rain Number (Day of Month): " + dayNumber);
   println("Rain Average: " + rain.avgForDay());

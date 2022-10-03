@@ -7,6 +7,7 @@ class CloudIcon {
   float rainX;
   float rainY;
   float rainSpeed;
+  PImage cloud;
   
   // constructors
   CloudIcon() {
@@ -16,11 +17,13 @@ class CloudIcon {
       rainX and rainY will highly likely need updating
     */
     
-    cloudX = width - 150;
-    cloudY = height/2 + 50;
+    cloud = loadImage("images/cloud.png");
     
-    rainX = random(width - 130, width - 80);
-    rainY = random (height/2 + 70, height/2 + 80);
+    cloudX = width - 140;
+    cloudY = height/2 + 60;
+    
+    rainX = random(width - 120, width - 70);
+    rainY = random (height/2 + 80, height/2 + 90);
     
     rainSpeed = random(1, 2);
   }
@@ -28,6 +31,24 @@ class CloudIcon {
   // methods 
   void drawRainCloud() {
     image(cloud, cloudX, cloudY, cloud.width/2, cloud.height/2);
+    
+    //// to display text over cloud
+    //fill(0);
+    //if (dayNumber == 0) {
+    //  textSize(12);
+    //  text("N/A", cloudX + 37, cloudY + 40);
+    //}
+    //else {
+    //  if (rain.avgForDay() == 0) {
+    //    textSize(12);
+    //    text("0.000 mm", cloudX + 25, cloudY + 40);
+    //  }
+    //  else {
+    //    textSize(12);
+    //    text(df.format(rain.avgForDay()) + " mm", cloudX + 25, cloudY + 40);
+    //  }
+    //}
+    
   }
   
   void drawRainDrop() {
@@ -55,7 +76,7 @@ class CloudIcon {
   void updateDropLocation() {
     rainY += rainSpeed;
     
-    if (rainY >= height - 200) {
+    if (rainY >= height - 190) {
       rainY = random (height/2 + 80, height/2 + 90);
     }
     
