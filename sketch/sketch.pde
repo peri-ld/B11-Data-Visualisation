@@ -10,6 +10,7 @@ float monthAverageTemperature=0;
 float chooseTemp=0;
 float tempOff=1;//设定超过平均温度几度就算较大偏差
 String week[]={"SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"};
+
 void setup() {  
   size(1000, 600);
   textAlign(LEFT, TOP);
@@ -20,6 +21,7 @@ void setup() {
   int number=0;
   int nowDay=1, lastDay=1;
   float dailyAverageTemperature=0;
+  
   for (TableRow row : table.rows()) {
 
     String time = row.getString("date");
@@ -63,6 +65,7 @@ void setup() {
   //绿色渐变组
   //设定各组颜色
 } 
+
 void draw() {
   chooseTemp=datas[chooseDay-1].temp;
   if (chooseTemp>monthAverageTemperature) {
@@ -94,11 +97,13 @@ void draw() {
 
   drawGird();
 }
+
 int date=31;
-float s=3.5;//控制方块大小倍率
-float rw=30*s, rh=25*s;//方块大小
-float sx=70, sy=100;//方块起始位置
-float rx=sx, ry=sy;//方块当前位置
+float s=3.5;//控制方块大小倍率 // // control of rectangle size rate
+float rw=30*s, rh=25*s;//方块大小 // rect size
+float sx=70, sy=100;//方块起始位置  // rect start position
+float rx=sx, ry=sy;//方块当前位置 // rect current position
+
 void drawGird() {
   //绘制日期表格
   int date=31;
@@ -159,6 +164,7 @@ void drawGird() {
   }
   //绘制星期文字
 }
+
 void mousePressed() {
   int date=31;
   rx=sx;
@@ -166,7 +172,7 @@ void mousePressed() {
 
   for (int j=0; j<5; j++) {
     for (int i=0; i<7; i++) {
-      if (date<=31&&mouseX>rx&&mouseX<rx+rw&&mouseY>ry&&mouseY<ry+rh) {
+      if (date<=31 && mouseX>rx && mouseX<rx+rw && mouseY>ry && mouseY<ry+rh) {
         chooseDay=date;
       }
       date++;
@@ -179,6 +185,7 @@ void mousePressed() {
     ry+=rh;
   }
 }
+
 class Data {
   float temp;
   int date;

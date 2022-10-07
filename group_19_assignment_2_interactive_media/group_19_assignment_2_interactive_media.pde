@@ -1,11 +1,13 @@
 
 /*
-  Code for Group 19 - 32027 31080 Interactive Media - Spring 2022
+  32027 31080 Interactive Media - Spring 2022
+  Assignment 2
+  Code for Group 19 - Peri, Xinyue, Xueyu, Chantel
 */
 
 // libraries
 import beads.*;
-import controlP5.*;
+//import controlP5.*;
 import java.text.DecimalFormat;
 
 //// variables
@@ -27,6 +29,8 @@ CloudIcon[] cloudDrops = new CloudIcon[15];
 WindDirection windDir;
 
 TempGraph tempGraph;
+
+TempBackgroundChange tempBgChange;
 
 // Tables
 Table windDirectionTable;
@@ -57,12 +61,13 @@ void setup() {
   windSpeedTable      = loadTable("data/windSpeedAverage.csv", "csv");
   
   // initalise classes
-  calendar  = new Calendar();
-  sun       = new UVARadiation();
-  windDir   = new WindDirection();
-  rain      = new Rain();
-  rainCloud = new CloudIcon();
-  tempGraph = new TempGraph();
+  calendar     = new Calendar();
+  sun          = new UVARadiation();
+  windDir      = new WindDirection();
+  rain         = new Rain();
+  rainCloud    = new CloudIcon();
+  tempGraph    = new TempGraph();
+  tempBgChange = new TempBackgroundChange();
   
   for (int i = 0; i < rainDrops.length; i++) {
     rainDrops[i] = new Rain();
@@ -71,6 +76,8 @@ void setup() {
   for (int i = 0; i < cloudDrops.length; i++) {
     cloudDrops[i] = new CloudIcon();
   }
+  
+  tempBgChange.setupTempBg();
   
   // sound
   ac = AudioContext.getDefaultContext();
@@ -99,6 +106,8 @@ void setup() {
 
 void draw() {
   background(backgroundColour, 150);
+  
+  tempBgChange.drawTempBg();
   
   int rainLimit = rain.limitForRain();
   rainGain.setGain(rain.avgForDay() / 2);
@@ -140,39 +149,63 @@ void draw() {
 } // end draw()
 
 
-void mouseMoved() {
-  // place hover functionality here once it's done and working
+void mousePressed() {
+  int date=31;
+  int rx = calendar.startPointX;
+  int ry = calendar.startPointY;
+  int s = calendar.shapeSize;
   
-  //
-  //
-  //
-  
-}
-
-
-
-
-// ** THIS NEEDS TO BE CHANGED SINCE IT RELIES ON KEY PRESSES NOT THE HOVER //**//
-  //** HOVER FUNCTION TO BE MADE LATER //**//
-void keyPressed() {
-  if (key == CODED) {
-    if (keyCode == LEFT) {
-      if (dayNumber != 1) {
-        dayNumber--;
+  for (int j=0; j<5; j++) {
+    for (int i=0; i<7; i++) {
+      
+      if ( date<=31 && (mouseX > rx) && (mouseX < rx+s) && (mouseY > ry) && (mouseY < ry+s) ) {
+        dayNumber = date;
         rain.updateDay(dayNumber);
         windDir.updateWindDirectionDay(dayNumber);
         sun.updateDay(dayNumber);
+        tempBgChange.updateChosenDate(dayNumber);
+        break;
       }
-    }
-    else if (keyCode == RIGHT) {
-      if (dayNumber != 31) {
-        dayNumber++;
-        rain.updateDay(dayNumber);    
-        windDir.updateWindDirectionDay(dayNumber);
-        sun.updateDay(dayNumber);
+      date++;
+      if (date==36) {
+        date=1;
       }
-    }
-  }
-} // end keyPressed
-// ** THIS ^^ NEEDS TO BE CHANGED SINCE IT RELIES ON KEY PRESSES NOT THE HOVER //**//
-  //** HOVER FUNCTION TO BE MADE LATER //**//
+      rx+=s;
+    } // end for i
+    
+    rx=calendar.startPointX;
+    ry+=s;
+    
+  } // end for j
+  
+} // end mousePressed()
+
+
+
+/////// below to be deleted if it all works fine, leaving in here for now ///////
+//// ** THIS NEEDS TO BE CHANGED SINCE IT RELIES ON KEY PRESSES NOT THE HOVER //**//
+//  //** HOVER FUNCTION TO BE MADE LATER //**//
+//void keyPressed() {
+//  if (key == CODED) {
+//    if (keyCode == LEFT) {
+//      if (dayNumber != 1) {
+//        dayNumber--;
+//        rain.updateDay(dayNumber);
+//        windDir.updateWindDirectionDay(dayNumber);
+//        sun.updateDay(dayNumber);
+//        tempBgChange.updateChosenDate(dayNumber);
+//      }
+//    }
+//    else if (keyCode == RIGHT) {
+//      if (dayNumber != 31) {
+//        dayNumber++;
+//        rain.updateDay(dayNumber);    
+//        windDir.updateWindDirectionDay(dayNumber);
+//        sun.updateDay(dayNumber);
+//        tempBgChange.updateChosenDate(dayNumber);
+//      }
+//    }
+//  }
+//} // end keyPressed
+//// ** THIS ^^ NEEDS TO BE CHANGED SINCE IT RELIES ON KEY PRESSES NOT THE HOVER //**//
+//  //** HOVER FUNCTION TO BE MADE LATER //**//

@@ -10,7 +10,7 @@ class Calendar {
     textFont(legendFont);
     textSize(32);//October Size
     fill(255);//October color
-    text("October 2021",160,50);
+    text("October 2021",220,50);
     textSize(20);//weekDays Size
     text("Sun",80,100);
     text("Mon",80+shapeSize,100);
@@ -24,9 +24,26 @@ class Calendar {
     strokeWeight(1);
     stroke(255);//square color
     
+    int dayCount = 31;
+    
     for(int i = 0; i < 360; i = i + shapeSize){
       for(int m = 0; m < 504; m = m + shapeSize){
-        square(startPointX + m,startPointY + i,shapeSize);//columns
+        
+          fill(135,206,235);
+          square(startPointX + m,startPointY + i,shapeSize);//columns
+          
+          if (dayCount == dayNumber) {
+            fill(144,135,234);
+            square(startPointX + m,startPointY + i,shapeSize);//columns
+          }
+          
+          dayCount++;
+          
+          if (dayCount==36) {
+            dayCount=1;
+          }
+        
+        //square(startPointX + m,startPointY + i,shapeSize);//columns
       }
     }
     

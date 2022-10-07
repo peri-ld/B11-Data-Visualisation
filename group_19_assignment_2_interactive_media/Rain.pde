@@ -11,7 +11,8 @@ class Rain {
   Rain() {
     startX = random(width);
     startY = random(-200, 0);
-    rainSpeed = random(6, 11);
+    //rainSpeed = random(6, 11);
+    rainSpeed = random(8, 14);
     rainColor = color(78, 149, 222, 100);
   }
   
@@ -19,9 +20,12 @@ class Rain {
   
   // draw rain
   void rainDrop() {
-    fill(rainColor);
-    noStroke();
-    rect(startX, startY, random(1, 4), random(5, 20));
+    //fill(rainColor);
+    //noStroke();
+    //rect(startX, startY, random(1, 4), random(5, 20));
+    
+    drawDroplet();
+    
     updateRainFallLocation();
   }
   
@@ -32,6 +36,28 @@ class Rain {
     if (startY > height) {
       startY = random(-200, -50);
     }
+  }
+  
+  void drawDroplet() {
+    fill(111, 174, 234, 75);
+    stroke(111, 174, 234);
+    beginShape();
+    vertex(startX, startY);
+    vertex(startX - 3, startY + 6);
+    curveVertex(startX - 3, startY + 6);
+    curveVertex(startX - 3, startY + 6);
+    curveVertex(startX - 1.5, startY + 7);
+    curveVertex(startX - 1.5, startY + 7);
+    curveVertex(startX, startY + 8);
+    curveVertex(startX, startY + 8);
+    curveVertex(startX + 1.5, startY + 7);
+    curveVertex(startX + 1.5, startY + 7);
+    curveVertex(startX + 3, startY + 6);
+    curveVertex(startX + 3, startY + 6);
+    vertex(startX + 3, startY + 6);
+    vertex(startX, startY);
+    endShape();
+    stroke(0);
   }
   
   public void updateDay(int day) {

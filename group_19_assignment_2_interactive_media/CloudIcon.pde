@@ -52,8 +52,8 @@ class CloudIcon {
   }
   
   void drawRainDrop() {
-    fill(111, 174, 234, 100);
-    stroke(111, 174, 234);
+    fill(110, 198, 232, 175);
+    stroke(110, 143, 232);
     beginShape();
     vertex(rainX, rainY);
     vertex(rainX - 3, rainY + 6);
