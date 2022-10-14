@@ -49,15 +49,14 @@ void draw() {
  rect(X1, Y1, X2, Y2);
  drawGraph(temp, minTemp, maxTemp);
  
+ // drawing red line for day
+ int day = 1;
+ int dayx = 25 + 700/31;
+ int dayy = 100;
+ stroke(255, 0, 0);
+ line(dayx*day, dayy, dayx*day, dayy + 400);
+ 
  // draw legend
- //title
- fill(255);
- textSize(30);
- textAlign(LEFT);
- text("Average Daily Temperature of October", X1, Y1 - 10);
- textSize(10);
- textAlign(RIGHT, BOTTOM);
- text("Source: B11 Weather Sensor (*website here*)", width-10, height-10);
  
  // axis labels
  drawXLabels();
@@ -67,14 +66,6 @@ void draw() {
 
 void drawYLabels () {
   fill(255);
-  textSize(10);
-  textAlign(RIGHT);
-  stroke(255);
-  for (float i=minTemp; i <= maxTemp; i += 10) {
-    float y = map(i, minTemp, minTemp, Y2, Y1);
-    text(floor(i), X1-10, y);
-    line(X1, y, X1-5, y);
-  }
   
   textSize(25);
   rotate(radians(270));
@@ -84,23 +75,15 @@ void drawYLabels () {
 
 void drawXLabels () {
   fill(255);
-  textSize(10);
-  textAlign(RIGHT);
-  stroke(255);
-  for (float i=minTemp; i <= maxTemp; i += 10) {
-    float y = map(i, minTemp, minTemp, Y2, Y1);
-    text(floor(i), X1-10, y);
-    line(X1, y, X1-5, y);
-  }
   
   textSize(25);
   textAlign(CENTER);
-  text("Day", width/2, height-60);
+  text("Day", width/2, height-50);
 }
 
 // creates line of graph
 void drawGraph(float[] data, float yMin, float yMax) {
-  stroke(95, 232, 107); // could do gradient upper is red, lower is green/blue
+  stroke(105, 230, 94); // could do gradient upper is red, lower is green/blue
   strokeWeight(5);
   //fill(95, 232, 107);
   
@@ -109,8 +92,8 @@ void drawGraph(float[] data, float yMin, float yMax) {
     // map function repositions each point
     float x = map(i, 0, data.length-1, X1, X2);
     float y = map(data[i], yMin, yMax, Y2, Y1);
-    curveVertex(x, y); // connects the mapped points
-    //vertex(x, y);
+    //curveVertex(x, y); // connects the mapped points
+    vertex(x, y);
     //push();
     //stroke(0);
     //circle(x, y, 5);
