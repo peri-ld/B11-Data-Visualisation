@@ -82,14 +82,14 @@ void setup() {
   // sound
   ac = AudioContext.getDefaultContext();
   
-  String rainAudioFileName = "/Users/chantelmills/Documents/GitHub/B11-Data-Visualisation/group_19_assignment_2_interactive_media/sounds/raining.mp3";
+  String rainAudioFileName = "/Users/Peri/Documents/GitHub/B11-Data-Visualisation/group_19_assignment_2_interactive_media/sounds/raining.mp3";
   rainPlayer = new SamplePlayer(ac, SampleManager.sample(rainAudioFileName));
   rainPlayer.setLoopType(SamplePlayer.LoopType.LOOP_FORWARDS);
   rainGain = new Gain(ac, 2, 0);
   rainGain.addInput(rainPlayer);
   ac.out.addInput(rainGain);
   
-  String windAudioFileName = "/Users/chantelmills/Documents/GitHub/B11-Data-Visualisation/group_19_assignment_2_interactive_media/sounds/the_wind.mp3";
+  String windAudioFileName = "/Users/Peri/Documents/GitHub/B11-Data-Visualisation/group_19_assignment_2_interactive_media/sounds/the_wind.mp3";
   windPlayer = new SamplePlayer(ac, SampleManager.sample(windAudioFileName));
   windPlayer.setLoopType(SamplePlayer.LoopType.LOOP_FORWARDS);
   windGain = new Gain(ac, 1, 0);
@@ -138,7 +138,7 @@ void draw() {
   windDir.drawWind();
   resetMatrix();
   
-  //tempGraph.setupTempGraph(); 
+  tempGraph.setupTempGraph(); 
   /*
     temp graph isn't working quite right at the moment, commented out just so the basics can be added to github
     -> labels are in the wrong spot
