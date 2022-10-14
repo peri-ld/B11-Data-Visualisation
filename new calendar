@@ -1,0 +1,55 @@
+String weekDays[] = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
+int startPointX = 50;
+int startPointY = 120;
+int currentPosX = 50;
+int currentPosY = 120;
+int shapeSize = 72;
+void setup(){
+  size(800,600);
+  background(135,206,235);
+}
+void draw(){
+  int date=31;
+
+  PFont legendFont = createFont("AcademyEngravedLetPlain-48", 45);
+  textFont(legendFont);
+  textSize(32);//October Size
+  fill(255);//October color
+  text("October 2021",150,50);
+  
+  textSize(20);//weekDays Size
+  currentPosX = startPointX;
+  for (int q=0; q<7; q++) {
+    text(weekDays[q], currentPosX, 100);
+    currentPosX+=shapeSize;
+  }
+  
+  strokeWeight(1);
+  stroke(255);//square color
+  currentPosY = startPointY;
+  for(int i = 0; i < 360; i = i + shapeSize){
+    for(int m = 0; m < 504; m = m + shapeSize){
+      fill(135,206,235);
+  square(startPointX + m,startPointY + i,shapeSize);//columns
+       for (int j=0; j<5; j++) {
+    for (int a=0; a<7; a++) {
+      if(date<=30){
+        fill(255);
+        textSize(15);
+        text(31,55,212 - shapeSize);
+        text(date, currentPosX+5, currentPosY+20);
+      }
+      date++;
+      if (date==36) {
+        date=1;
+      }
+      currentPosX+=shapeSize;
+    }
+    currentPosX=startPointX;
+    currentPosY+=shapeSize;
+  }
+  currentPosX=startPointX;
+  currentPosY=startPointY;
+    }
+  }
+}
