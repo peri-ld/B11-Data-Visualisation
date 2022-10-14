@@ -2,7 +2,7 @@
 /*
   32027 31080 Interactive Media - Spring 2022
   Assignment 2
-  Code for Group 19 - Peri, Xinyue, Xueyu, Chantel
+  Code for Group 19 - Peri Le Dain, Xinyue Zhang, Xueyu Chen, Chantel Mills
 */
 
 // libraries

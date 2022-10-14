@@ -1,7 +1,3 @@
-/*
-  Code done by Chantel
-*/
-
 class WindDirection {
   
   int selectedDay = 0;
