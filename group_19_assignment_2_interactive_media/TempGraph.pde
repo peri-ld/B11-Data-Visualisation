@@ -10,8 +10,8 @@ class TempGraph {
   PFont legendFont;
   
   TempGraph() {
-    X1 = width - 200; Y1 = 80;
-    X2 = width - 10;
+    X1 = width - 250; Y1 = 80;
+    X2 = width - 50;
     Y2 = 200;
     legendFont = createFont("SansSerif", 10); // change font later
     textFont(legendFont);
@@ -40,56 +40,35 @@ class TempGraph {
     fill(bgColour); // variable
     rect(X1, Y1, X2, Y2);
     drawGraph(temp, minTemp, maxTemp);
-     
-    // draw legend
-    //title
-    fill(255);
-    textSize(30);
-    textAlign(LEFT);
-    text("Average Daily Temperature of October", X1, Y1 - 10);
-    textSize(10);
-    textAlign(RIGHT, BOTTOM);
-    text("Source: B11 Weather Sensor (*website here*)", width-10, height-10);
+    
+    // drawing red line for day
+    int day = 2;
+    int dayx = (width - 255);
+    int dayy = height-570;
+    stroke(255, 0, 0);
+    line(dayx+(190/31)*day, dayy, dayx+(190/31)*day, dayy+120);
      
     // axis labels
-    drawXLabels();
+    //drawXLabels();
     drawYLabels();
      
     rectMode(CORNER); // reset back to default rectMode (if this isn't here, the formating gets messed around)
   }
   
   void drawYLabels () {
-    fill(255);
-    textSize(10);
-    textAlign(RIGHT);
-    stroke(255);
-    for (float i=minTemp; i <= maxTemp; i += 10) {
-      float y = map(i, minTemp, minTemp, Y2, Y1);
-      text(floor(i), X1-10, y);
-      line(X1, y, X1-5, y);
-    }
-    
-    textSize(25);
+    push();
+    textSize(18);
     rotate(radians(270));
     textAlign(CENTER);
-    text("Temperature (°C)", -height/2, 40);
+    text("Temp (°C)", -height/4+20, width-270);
+    pop();
   }
   
-  void drawXLabels () {
-    fill(255);
-    textSize(10);
-    textAlign(RIGHT);
-    stroke(255);
-    for (float i=minTemp; i <= maxTemp; i += 10) {
-      float y = map(i, minTemp, minTemp, Y2, Y1);
-      text(floor(i), X1-10, y);
-      line(X1, y, X1-5, y);
-    }
-    
-    textSize(25);
-    textAlign(CENTER);
-    text("Day", width/2, height-60);
-  }
+  //void drawXLabels () {
+  //  textSize(25);
+  //  textAlign(CENTER);
+  //  text("Day", width/2, height-60);
+  //}
   
   // creates line of graph
   void drawGraph(float[] data, float yMin, float yMax) {
@@ -102,8 +81,8 @@ class TempGraph {
       // map function repositions each point
       float x = map(i, 0, data.length-1, X1, X2);
       float y = map(data[i], yMin, yMax, Y2, Y1);
-      curveVertex(x, y); // connects the mapped points
-      //vertex(x, y);
+      //curveVertex(x, y); // connects the mapped points
+      vertex(x, y);
       //push();
       //stroke(0);
       //circle(x, y, 5);
