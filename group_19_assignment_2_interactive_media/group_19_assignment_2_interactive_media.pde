@@ -179,33 +179,3 @@ void mousePressed() {
   } // end for j
   
 } // end mousePressed()
-
-
-
-/////// below to be deleted if it all works fine, leaving in here for now ///////
-//// ** THIS NEEDS TO BE CHANGED SINCE IT RELIES ON KEY PRESSES NOT THE HOVER //**//
-//  //** HOVER FUNCTION TO BE MADE LATER //**//
-//void keyPressed() {
-//  if (key == CODED) {
-//    if (keyCode == LEFT) {
-//      if (dayNumber != 1) {
-//        dayNumber--;
-//        rain.updateDay(dayNumber);
-//        windDir.updateWindDirectionDay(dayNumber);
-//        sun.updateDay(dayNumber);
-//        tempBgChange.updateChosenDate(dayNumber);
-//      }
-//    }
-//    else if (keyCode == RIGHT) {
-//      if (dayNumber != 31) {
-//        dayNumber++;
-//        rain.updateDay(dayNumber);    
-//        windDir.updateWindDirectionDay(dayNumber);
-//        sun.updateDay(dayNumber);
-//        tempBgChange.updateChosenDate(dayNumber);
-//      }
-//    }
-//  }
-//} // end keyPressed
-//// ** THIS ^^ NEEDS TO BE CHANGED SINCE IT RELIES ON KEY PRESSES NOT THE HOVER //**//
-//  //** HOVER FUNCTION TO BE MADE LATER //**//
