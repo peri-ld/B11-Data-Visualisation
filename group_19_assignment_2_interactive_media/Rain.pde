@@ -12,7 +12,7 @@ class Rain {
     startX = random(width);
     startY = random(-200, 0);
     //rainSpeed = random(6, 11);
-    rainSpeed = random(8, 14);
+    rainSpeed = random(10, 16);
     rainColor = color(78, 149, 222, 100);
   }
   
@@ -40,6 +40,7 @@ class Rain {
   
   void drawDroplet() {
     fill(111, 174, 234, 75);
+    strokeWeight(1);
     stroke(111, 174, 234);
     beginShape();
     vertex(startX, startY);
