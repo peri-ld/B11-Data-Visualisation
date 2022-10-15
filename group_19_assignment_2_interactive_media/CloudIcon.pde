@@ -19,10 +19,10 @@ class CloudIcon {
     
     cloud = loadImage("images/cloud.png");
     
-    cloudX = width - 140;
+    cloudX = width - 200;
     cloudY = height/2 + 60;
     
-    rainX = random(width - 120, width - 70);
+    rainX = random(width - 180, width - 130);
     rainY = random (height/2 + 80, height/2 + 90);
     
     rainSpeed = random(1, 2);

@@ -8,7 +8,7 @@ class WindDirection {
   
   WindDirection() {
     wind = loadImage("images/wind.png");
-    windIconX = width - 100;
+    windIconX = width - 160;
     windIconY = height - 170;
   }
   

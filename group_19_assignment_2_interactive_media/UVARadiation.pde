@@ -17,7 +17,7 @@ class UVARadiation {
   
   // constructors
   UVARadiation() {
-    sunX        = width - 90;
+    sunX        = width - 150;
     sunY        = height/2 - 20;
     sunRadius   = 50;
     rayCount    = 20;
