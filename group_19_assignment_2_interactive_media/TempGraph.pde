@@ -42,11 +42,20 @@ class TempGraph {
     drawGraph(temp, minTemp, maxTemp);
     
     // drawing red line for day
-    int day = 2;
+    int day = dayNumber; // dayNumber is from the main class
     int dayx = (width - 255);
     int dayy = height-570;
     stroke(255, 0, 0);
-    line(dayx+(190/31)*day, dayy, dayx+(190/31)*day, dayy+120);
+    
+    if (day == 30) {
+      line(dayx+(190/31)*day +10, dayy, dayx+(190/31)*day +10, dayy+120);
+    }
+    else if (day == 31) {
+      line(dayx+(190/31)*day +17, dayy, dayx+(190/31)*day +17, dayy+120);
+    }
+    else {
+      line(dayx+(190/31)*day, dayy, dayx+(190/31)*day, dayy+120);
+    }
      
     // axis labels
     //drawXLabels();

@@ -139,11 +139,6 @@ void draw() {
   resetMatrix();
   
   tempGraph.setupTempGraph(); 
-  /*
-    temp graph isn't working quite right at the moment, commented out just so the basics can be added to github
-    -> labels are in the wrong spot
-    -> it messes with the calendar and don't want to change calendar till temp Graph works
-  */
  
   
 } // end draw()
