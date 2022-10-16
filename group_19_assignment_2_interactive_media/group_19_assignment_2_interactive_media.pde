@@ -32,6 +32,8 @@ TempGraph tempGraph;
 
 TempBackgroundChange tempBgChange;
 
+StatBox statBox;
+
 // Tables
 Table windDirectionTable;
 Table uvaRadiationTable;
@@ -68,6 +70,7 @@ void setup() {
   rainCloud    = new CloudIcon();
   tempGraph    = new TempGraph();
   tempBgChange = new TempBackgroundChange();
+  statBox      = new StatBox();
   
   for (int i = 0; i < rainDrops.length; i++) {
     rainDrops[i] = new Rain();
@@ -139,6 +142,8 @@ void draw() {
   resetMatrix();
   
   tempGraph.setupTempGraph(); 
+  
+  statBox.drawStatBox();
  
   
 } // end draw()
@@ -159,6 +164,7 @@ void mousePressed() {
         windDir.updateWindDirectionDay(dayNumber);
         sun.updateDay(dayNumber);
         tempBgChange.updateChosenDate(dayNumber);
+        statBox.updateDay(dayNumber);
         break;
       }
       date++;

@@ -103,6 +103,27 @@ class TempBackgroundChange {
     chooseDay = selectedDay;
   }
   
+  // gets average temperature for the day
+  public float avgForDay() {
+    float average = 0;
+    
+    if (chooseDay == 0) {
+      average = 0;
+    }
+    else {
+      int selected = chooseDay - 1;
+    
+      for (int i = 0; i < airTemperatureTable.getRowCount(); i++) {
+        if (i == selected) {
+          average = airTemperatureTable.getFloat(i, 1);
+          break;
+        }
+      }
+    }
+    
+    return average;
+  } // end avgForDay
+  
 } // end TempBackgroundChange class
 
 class Data {
